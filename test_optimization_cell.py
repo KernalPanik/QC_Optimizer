@@ -18,7 +18,7 @@ circuit.h(q[0])
 circuit.h(q[0])
 circuit.h(q[0])
 circuit.cx(q[0], q[1])
-circuit.measure(q[0], c[0])
+circuit.measure(q[0], c[0]) # pylint: disable=no-member
 circuit.rz(0.5, q[1]).c_if(c, 2)
 
 adaptive_scheduler = AdaptiveScheduler()
@@ -37,4 +37,4 @@ print(transformed_circuit)
 
 #circuit.draw(output='mpl')
 
-# %%
+ # %%

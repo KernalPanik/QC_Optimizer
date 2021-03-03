@@ -7,13 +7,9 @@ class AdaptiveScheduler():
         self.PassManager = PassManager()
         self.Learner = OptimizationLearner()
         
-    def run_optimization(self, circuit: QuantumCircuit(), transpiler_passes: list()) -> QuantumCircuit():
-        self.Learner.schedule_optimizations()
-        #TODO
-
-    def run_optimization(self, circuit: QuantumCircuit()) -> QuantumCircuit():
-        self.Learner.schedule_optimizations()
-        return self.PassManager.run(circuit)
+    def run_optimization(self, quantum_circuit):
+        print("optimizing...")
+        return self.PassManager.run(quantum_circuit)
 
 
 
