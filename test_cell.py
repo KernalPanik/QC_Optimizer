@@ -13,7 +13,7 @@ circuit = QuantumCircuit(2, 2)
 
 circuit.h(0)
 circuit.cx(0, 1)
-circuit.measure([0, 1], [0, 1])
+circuit.measure([0, 1], [0, 1]) # pylint: disable=no-member
 
 job = execute(circuit, simulator, shots=1000)
 result = job.result()
