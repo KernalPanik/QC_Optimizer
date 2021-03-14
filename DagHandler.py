@@ -79,22 +79,40 @@ def divide_into_subdags(adj_list: list):
     '''
     Returns an array of lists - sub-dags of a dag
     '''
+    # TODO Add Hadamard sub-dags
     x = 0
     y = 1
     skip_one = False
     subdag_list = list()
     current_subdag = list()
+    hadamard_subdags = list()
+
     for i in range(0, len(adj_list), 1):
         if(skip_one):
             skip_one = False
             continue
+        # Check if we are dealing with Hadamard subdags
+        if(adj_list[x+i].split('_')[0] == 'h'):
+            counter = 0
+            closure_found = False
+            for hadamard_subdag in hadamard_subdags:
+                # If we find same hadamard gate, we've got a complete hadamard subdag, close it,
+                # add it to the rest of subdags, and remove from Hadamard subdag list
+                if(hadamard_subdag[0] == adj_list[x+i]):
+                    hadamard_subdag.append(adj_list[x+i])
+                    subdag_list.append(hadamard_subdag)
+                    closure_found = True
+                    break
+                counter += 1
+            if(closure_found is False):
+                hadamard_subdags.append(list(adj_list[x+i]))
+            else:
+                del(hadamard_subdags[counter])
+        
+
         if(y+i > len(adj_list)-1):
             current_subdag.append(adj_list[x+i])
             break
-        print(x+i, y+i)
-        print('<' + adj_list[x+i] + ';' + adj_list[y+i] + '>')
-        interchangeable = check_if_interchangeable(adj_list[x+i], adj_list[y+i])
-        print("Interchangeable:", str(interchangeable))
         if(check_if_interchangeable(adj_list[x+i], adj_list[y+i])):
             current_subdag.append(adj_list[x+i])
             #current_subdag.append(adj_list[y+i])
@@ -105,6 +123,11 @@ def divide_into_subdags(adj_list: list):
             current_subdag = list()
             skip_one = True
             #current_subdag.append(adj_list[y+i])
+
+        for hadamard_subdag in hadamard_subdags:
+            hadamard_subdag.append(adj_list[x+i])
+            hadamard_subdag.append(adj_list[y+i])
+
     if(len(current_subdag) > 0):
         subdag_list.append(current_subdag)
     
@@ -171,3 +194,31 @@ print(listx1)
 subdags = divide_into_subdags(listx1)
 
 print(subdags)
+
+# hadamard subdags
+q2 = QuantumRegister(3, 'q')
+c2 = ClassicalRegister(3, 'c')
+circ2 = QuantumCircuit(q2, c2)
+circ2.h(q2[0])
+circ2.x(q2[1])
+circ2.h(q2[2])
+circ2.x(q2[0])
+circ2.cx(q2[2], q2[1])
+circ2.x(q2[0])
+circ2.h(q2[1])
+circ2.x(q2[2])
+circ2.cx(q2[0], q2[1])
+circ2.h(q2[2])
+circ2.h(q2[0])
+circ2.h(q2[1])
+
+print(circ2)
+dag2 = circuit_to_dag(circ2)
+listx2 = dag_to_list(dag2)
+
+print(listx2)
+
+subdags2 = divide_into_subdags(listx2)
+
+print(subdags2)
+
