@@ -79,14 +79,12 @@ def divide_into_subdags(adj_list: list):
     '''
     Returns an array of lists - sub-dags of a dag
     '''
-    # TODO Add Hadamard sub-dags
     x = 0
     y = 1
     skip_one = False
     subdag_list = list()
     current_subdag = list()
     hadamard_subdags = list()
-
     for i in range(0, len(adj_list), 1):
         if(skip_one):
             skip_one = False
@@ -100,13 +98,17 @@ def divide_into_subdags(adj_list: list):
                 # add it to the rest of subdags, and remove from Hadamard subdag list
                 if(hadamard_subdag[0] == adj_list[x+i]):
                     hadamard_subdag.append(adj_list[x+i])
-                    subdag_list.append(hadamard_subdag)
-                    closure_found = True
+                    #subdag_list.append(hadamard_subdag)
+                    closure_found = True 
+                    #closed_hadamard_subdag_id = counter
                     break
                 counter += 1
             if(closure_found is False):
-                hadamard_subdags.append(list(adj_list[x+i]))
+                new_hadamard_subdag = list()
+                #new_hadamard_subdag.append(adj_list[x+i])
+                hadamard_subdags.append(new_hadamard_subdag)
             else:
+                subdag_list.append(hadamard_subdags[counter])
                 del(hadamard_subdags[counter])
         
 
@@ -126,8 +128,8 @@ def divide_into_subdags(adj_list: list):
 
         for hadamard_subdag in hadamard_subdags:
             hadamard_subdag.append(adj_list[x+i])
-            hadamard_subdag.append(adj_list[y+i])
-
+            #hadamard_subdag.append(adj_list[y+i])
+        
     if(len(current_subdag) > 0):
         subdag_list.append(current_subdag)
     
@@ -216,9 +218,10 @@ print(circ2)
 dag2 = circuit_to_dag(circ2)
 listx2 = dag_to_list(dag2)
 
-print(listx2)
+#print(listx2)
 
 subdags2 = divide_into_subdags(listx2)
 
-print(subdags2)
+for subdagg in subdags2:
+    print(subdagg)
 
