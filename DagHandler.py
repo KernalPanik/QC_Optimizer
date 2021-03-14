@@ -79,19 +79,37 @@ def divide_into_subdags(adj_list: list):
     '''
     Returns an array of lists - sub-dags of a dag
     '''
+    x = 0
+    y = 1
+    skip_one = False
     subdag_list = list()
     current_subdag = list()
-    for i in range(len(adj_list)):
-        for j in range(1, len(adj_list)):
-            if(check_if_interchangeable(adj_list[i], adj_list[j])):
-                current_subdag.append(adj_list[i])
-            else:
-                subdag_list.append(current_subdag)
-                current_subdag = list()
-                current_subdag.append(adj_list[i])
-
+    for i in range(0, len(adj_list), 1):
+        if(skip_one):
+            skip_one = False
+            continue
+        if(y+i > len(adj_list)-1):
+            current_subdag.append(adj_list[x+i])
+            break
+        print(x+i, y+i)
+        print('<' + adj_list[x+i] + ';' + adj_list[y+i] + '>')
+        interchangeable = check_if_interchangeable(adj_list[x+i], adj_list[y+i])
+        print("Interchangeable:", str(interchangeable))
+        if(check_if_interchangeable(adj_list[x+i], adj_list[y+i])):
+            current_subdag.append(adj_list[x+i])
+            #current_subdag.append(adj_list[y+i])
+        else:
+            current_subdag.append(adj_list[x+i])
+            current_subdag.append(adj_list[y+i])
+            subdag_list.append(current_subdag)
+            current_subdag = list()
+            skip_one = True
+            #current_subdag.append(adj_list[y+i])
+    if(len(current_subdag) > 0):
+        subdag_list.append(current_subdag)
+    
     return subdag_list
-
+        
 def sort_subdag(adj_list: list):
     '''
     Sorts the entries in a sub-dag so all identical operations are grouped.
@@ -131,3 +149,25 @@ print(check_if_interchangeable(op3, op2))
 print(check_if_interchangeable(op4, op5))
 print(check_if_interchangeable(op2, op1))
 
+# Sub-dag gen test
+q1 = QuantumRegister(2, 'q')
+c1 = ClassicalRegister(2, 'c')
+circ1 = QuantumCircuit(q1, c1)
+circ1.x(q1[0])
+circ1.x(q1[0])
+circ1.cx(q1[0], q1[1])
+circ1.cx(q1[1], q1[0])
+circ1.x(q1[0])
+circ1.cx(q1[0], q1[1])
+circ1.x(q1[1])
+circ1.x(q1[1])
+
+print(circ1)
+dag1 = circuit_to_dag(circ1)
+listx1 = dag_to_list(dag1)
+
+print(listx1)
+
+subdags = divide_into_subdags(listx1)
+
+print(subdags)
