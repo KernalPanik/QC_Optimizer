@@ -139,7 +139,20 @@ def sort_subdag(adj_list: list):
     '''
     Sorts the entries in a sub-dag so all identical operations are grouped.
     '''
-    raise NotImplementedError
+    if(adj_list[0] is str and adj_list[0].split('_')[0] == 'h'):
+        #We've got a Hadamard Sub-Dag, no sorting required
+        return adj_list
+
+    sorted_list = list()
+    for entry in adj_list:
+        if(entry in sorted_list):
+            continue
+        sorting_entry = entry
+        for i in range(len(adj_list)):
+            if(adj_list[i] == sorting_entry):
+                sorted_list.append(adj_list[i])
+
+    return sorted_list
 
 #Testing, remove when done
 q = QuantumRegister(3, 'q')
@@ -180,6 +193,8 @@ c1 = ClassicalRegister(2, 'c')
 circ1 = QuantumCircuit(q1, c1)
 circ1.x(q1[0])
 circ1.x(q1[0])
+circ1.cx(q1[1], q1[0])
+circ1.x(q1[0])
 circ1.cx(q1[0], q1[1])
 circ1.cx(q1[1], q1[0])
 circ1.x(q1[0])
@@ -196,6 +211,14 @@ print(listx1)
 subdags = divide_into_subdags(listx1)
 
 print(subdags)
+
+sorted_subdags = list()
+for subd in subdags:
+    sorted_subdags.append(sort_subdag(subd))
+
+print("=======")
+print(sorted_subdags)
+print("=======")
 
 # hadamard subdags
 q2 = QuantumRegister(3, 'q')
@@ -221,7 +244,15 @@ listx2 = dag_to_list(dag2)
 #print(listx2)
 
 subdags2 = divide_into_subdags(listx2)
-
+sorted_subdaggs = list()
 for subdagg in subdags2:
     print(subdagg)
+    sorted_subdaggs.append(sort_subdag(subdagg))
+print("-----------------------------------------")
+for sorted_subdagg in sorted_subdaggs:
+    print(sorted_subdagg)
 
+test_list = [1, 2, 2, 1, 4, 2, 2, 1, 4, 5, 4, 5]
+sorted_test_list = sort_subdag(test_list)
+print(test_list)
+print(sorted_test_list)
