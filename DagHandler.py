@@ -1,6 +1,4 @@
 from qiskit.dagcircuit import DAGCircuit
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
-from qiskit.converters import circuit_to_dag
 
 '''
 This Module provides all neccessary functionality for DAGCircuit parsing, comparing and divinding.
@@ -78,8 +76,6 @@ def divide_into_subdags(adj_list: list):
     '''
     Returns an array of lists - sub-dags of a dag
     '''
-    x = 0
-    y = 1
     skip_one = False
     subdag_list = list()
     current_subdag = list()
@@ -89,45 +85,39 @@ def divide_into_subdags(adj_list: list):
             skip_one = False
             continue
         # Check if we are dealing with Hadamard subdags
-        if(adj_list[x+i].split('_')[0] == 'h'):
+        if(adj_list[i].split('_')[0] == 'h'):
             counter = 0
             closure_found = False
             for hadamard_subdag in hadamard_subdags:
                 # If we find same hadamard gate, we've got a complete hadamard subdag, close it,
                 # add it to the rest of subdags, and remove from Hadamard subdag list
-                if(hadamard_subdag[0] == adj_list[x+i]):
-                    hadamard_subdag.append(adj_list[x+i])
-                    #subdag_list.append(hadamard_subdag)
-                    closure_found = True 
-                    #closed_hadamard_subdag_id = counter
+                if(hadamard_subdag[0] == adj_list[i]):
+                    hadamard_subdag.append(adj_list[i])
+                    closure_found = True
                     break
                 counter += 1
             if(closure_found is False):
                 new_hadamard_subdag = list()
-                #new_hadamard_subdag.append(adj_list[x+i])
                 hadamard_subdags.append(new_hadamard_subdag)
             else:
                 subdag_list.append(hadamard_subdags[counter])
                 del(hadamard_subdags[counter])
         
 
-        if(y+i > len(adj_list)-1):
-            current_subdag.append(adj_list[x+i])
+        if(i+1 > len(adj_list)-1):
+            current_subdag.append(adj_list[i])
             break
-        if(check_if_interchangeable(adj_list[x+i], adj_list[y+i])):
-            current_subdag.append(adj_list[x+i])
-            #current_subdag.append(adj_list[y+i])
+        if(check_if_interchangeable(adj_list[i], adj_list[i+1])):
+            current_subdag.append(adj_list[i])
         else:
-            current_subdag.append(adj_list[x+i])
-            current_subdag.append(adj_list[y+i])
+            current_subdag.append(adj_list[i])
+            current_subdag.append(adj_list[i+1])
             subdag_list.append(current_subdag)
             current_subdag = list()
             skip_one = True
-            #current_subdag.append(adj_list[y+i])
 
         for hadamard_subdag in hadamard_subdags:
-            hadamard_subdag.append(adj_list[x+i])
-            #hadamard_subdag.append(adj_list[y+i])
+            hadamard_subdag.append(adj_list[i])
         
     if(len(current_subdag) > 0):
         subdag_list.append(current_subdag)
