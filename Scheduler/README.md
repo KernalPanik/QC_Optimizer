@@ -1,2 +1,0 @@
-# QC_Optimizer
- 
