@@ -8,6 +8,9 @@ Two different environments with different requirements must be created for these
 
 Learner should be working on Mac M1 chips, while Scheduler can be run on a Mac M1 via Rosetta2 only, since Scipy fails to install when running qiskit on M1 natively.
 
+### Virtual environments
+Qiskit: conda activate qiskit_venv
+TF: . "/Users/lukemichniewicz/tensorflow_macos_venv/bin/activate" 
 
 
 
