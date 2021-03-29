@@ -130,8 +130,8 @@ for epoch in range(num_epochs):
 #plt.show()
 
 
-test_fp = "test_data.csv"
-#test_fp = "training_data.csv"
+#test_fp = "test_data.csv"
+test_fp = "training_data.csv"
 
 test_dataset = tf.data.experimental.make_csv_dataset(
     test_fp,

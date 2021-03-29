@@ -1,4 +1,5 @@
 from qiskit.dagcircuit import DAGCircuit
+import binascii
 
 '''
 This Module provides all neccessary functionality for DAGCircuit parsing, comparing and divinding.
@@ -21,13 +22,14 @@ def dag_to_list(dag: DAGCircuit):
 
 def hash_adj_list(adj_list: list) -> list:
     '''
-    Hashes the entries in the adjacency list.
+    Hashes the entries in the adjacency list using CRC32.
     '''
-    # Some thoughts on hashing... First of all.. Why?
-    # To make string comparisons faster? I don't know if regular string comparison is fast enough
-    # I could compute CRC32 for string hashes, but is it needed though?
-    # I need to get some testing data beforehand first...
-    raise NotImplementedError
+    hashed_adj_list = []
+
+    for adj in adj_list:
+        hashed_adj_list.append(binascii.crc32(adj.encode('utf8')))
+    
+    return hashed_adj_list
 
 def _parse_adj_list_entry(entry: str) ->  dict:
     split_string = entry.split('_')
