@@ -125,7 +125,15 @@ def divide_into_subdags(adj_list: list):
         subdag_list.append(current_subdag)
     
     return subdag_list
-        
+
+def chop_subdag(adj_list: list, chop_size = 3):
+    '''
+    Divides given subdag into smaller subdags of a given size.
+    Make sure to cast the result into list()
+    '''
+    for i in range(0, len(adj_list), chop_size):
+        yield adj_list[i:i+chop_size]
+
 def sort_subdag(adj_list: list):
     '''
     Sorts the entries in a sub-dag so all identical operations are grouped.
