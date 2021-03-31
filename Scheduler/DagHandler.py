@@ -27,7 +27,15 @@ def hash_adj_list(adj_list: list) -> list:
     hashed_adj_list = []
 
     for adj in adj_list:
-        hashed_adj_list.append(binascii.crc32(adj.encode('utf8')))
+        num = 0
+        f = adj.split('_')
+        for i in f:
+            if(len(i) == 1):
+                num += ord(i)
+            elif(len(i) == 2):
+                num += ord(i[0])
+                num += ord(i[1])
+        hashed_adj_list.append(num)
     
     return hashed_adj_list
 
