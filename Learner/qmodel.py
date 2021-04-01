@@ -141,12 +141,12 @@ def predict(model, subdags: list):
     print("Example {} prediction: {} ({:4.1f}%)".format(i, name, 100*p))
 
 
-subdags_to_eval = [[281,281,282,],
-      [281,546,284,],
-      [283,268,283,]]
+subdags_to_eval = [[0.281,0.281,0.282,],
+      [0.281,0.546,0.284,],
+      [0.283,0.268,0.283,]]
 
-model = init_training_procedure("training_data.csv", 5)
-init_test_procedure(model, "training_data.csv", 5)
+model = init_training_procedure("training_data.csv", 32)
+init_test_procedure(model, "training_data.csv", 32)
 predict(model, subdags_to_eval)
 
-save_model(model)
+#save_model(model)

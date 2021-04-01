@@ -35,7 +35,7 @@ def hash_adj_list(adj_list: list) -> list:
             elif(len(i) == 2):
                 num += ord(i[0])
                 num += ord(i[1])
-        hashed_adj_list.append(num)
+        hashed_adj_list.append(num/1000)
     
     return hashed_adj_list
 
