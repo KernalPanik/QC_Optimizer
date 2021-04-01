@@ -73,17 +73,11 @@ def init_training_procedure(training_data: str, batch_size: int):
     epoch_loss_avg = tf.keras.metrics.Mean()
     epoch_accuracy = tf.keras.metrics.SparseCategoricalAccuracy()
 
-    # Training loop - using batches of 32
     for x, y in train_dataset:
-      # Optimize the model
       loss_value, grads = grad(model, x, y)
       optimizer.apply_gradients(zip(grads, model.trainable_variables))
 
-      # Track progress
       epoch_loss_avg.update_state(loss_value)  # Add current batch loss
-      # Compare predicted label to actual label
-      # training=True is needed only if there are layers with different
-      # behavior during training versus inference (e.g. Dropout).
       epoch_accuracy.update_state(y, model(x, training=True))
 
     # End epoch
@@ -125,30 +119,19 @@ def init_test_procedure(model, test_data: str, batch_size):
 
   tf.stack([y,prediction],axis=1)
 
-def save_model(model):
+def save_model(model, model_name="model"):
   """
   Save the Tensorflow model for future use
   """
-  pass
+  # This approach generates a lot of warnings, but I couldn't care less about it for now...
+  model.save('saved_models/'+model_name)
 
-def predict_single(model, subdag: list):
-  """
-  Predicts the optimization on the given subdag
-  """
-  pass
-
-def predict_multiple(model, subags: list):
+def predict(model, subdags: list):
   """
   Predicts the optimization on the given subdags
   """
-  predict_dataset = tf.convert_to_tensor([
-      [281,281,282,],
-      [281,546,284,],
-      [283,268,283,],
-  ])
+  predict_dataset = tf.convert_to_tensor(subdags)
 
-  # training=False is needed only if there are layers with different
-  # behavior during training versus inference (e.g. Dropout).
   predictions = model(predict_dataset, training=False)
 
   for i, logits in enumerate(predictions):
@@ -157,6 +140,13 @@ def predict_multiple(model, subags: list):
     name = class_names[class_idx]
     print("Example {} prediction: {} ({:4.1f}%)".format(i, name, 100*p))
 
+
+subdags_to_eval = [[281,281,282,],
+      [281,546,284,],
+      [283,268,283,]]
+
 model = init_training_procedure("training_data.csv", 5)
 init_test_procedure(model, "training_data.csv", 5)
-predict_multiple(model, None)
+predict(model, subdags_to_eval)
+
+save_model(model)
