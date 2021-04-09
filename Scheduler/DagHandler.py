@@ -1,4 +1,5 @@
 from qiskit.dagcircuit import DAGCircuit
+import binascii
 
 '''
 This Module provides all neccessary functionality for DAGCircuit parsing, comparing and divinding.
@@ -21,13 +22,22 @@ def dag_to_list(dag: DAGCircuit):
 
 def hash_adj_list(adj_list: list) -> list:
     '''
-    Hashes the entries in the adjacency list.
+    Hashes the entries in the adjacency list using CRC32.
     '''
-    # Some thoughts on hashing... First of all.. Why?
-    # To make string comparisons faster? I don't know if regular string comparison is fast enough
-    # I could compute CRC32 for string hashes, but is it needed though?
-    # I need to get some testing data beforehand first...
-    raise NotImplementedError
+    hashed_adj_list = []
+
+    for adj in adj_list:
+        num = 0
+        f = adj.split('_')
+        for i in f:
+            if(len(i) == 1):
+                num += ord(i)
+            elif(len(i) == 2):
+                num += ord(i[0])
+                num += ord(i[1])
+        hashed_adj_list.append(num/1000)
+    
+    return hashed_adj_list
 
 def _parse_adj_list_entry(entry: str) ->  dict:
     split_string = entry.split('_')
@@ -123,7 +133,15 @@ def divide_into_subdags(adj_list: list):
         subdag_list.append(current_subdag)
     
     return subdag_list
-        
+
+def chop_subdag(adj_list: list, chop_size = 3):
+    '''
+    Divides given subdag into smaller subdags of a given size.
+    Make sure to cast the result into list()
+    '''
+    for i in range(0, len(adj_list), chop_size):
+        yield adj_list[i:i+chop_size]
+
 def sort_subdag(adj_list: list):
     '''
     Sorts the entries in a sub-dag so all identical operations are grouped.
