@@ -9,3 +9,6 @@ Project has started!
 
 - Implemented DAGCircuit parsing into sub-dags
 - Implemented sub-dag element sorting
+
+## Version 0.2.0 [April 9 2021]
+

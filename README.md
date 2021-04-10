@@ -6,14 +6,18 @@ This project is split into two different Modules: Scheduler and Learner. Schedul
 
 Learner should be working on Mac M1 chips, while Scheduler can be run on a Mac M1 via Rosetta2 only, since Scipy fails to install when running qiskit on M1 natively. Will make sure it works without any trouble on windows, but will add some workarounds on a Mac M1, unfortunately.
 
+Use QASM files as an input, Optimizer will take path to qasm as a first arg
+
 ### On Windows
-python3 Optimizer_win.py -> Generate a QC there, and call optimizer pipeline, return serialized optimized circuit
+python3 Optimizer_win.py  <qasm file> -> Generate a QC there, and call optimizer pipeline, return serialized optimized circuit  
 
 ### On Mac M1
-python3 Serialize_circuit.py -> Serialize circuit as a dag to JSON file TODO:
-python3 Optimizer_mac_DagHash.py -> Generate a QC here, it will return a csv file containing hashed dag
-python3 Optimizer_mac_Ml.py <hashed dag path> -> Will generate optimization schedule based on provided hashed dag path, and will return a file containing the optimization names
-python3 Optimizer_mac_final.py <circuit json> <optimizations> -> run optimizations on a circuit, return serialized optimized circuit
+Instead of running an optimizer, run a special shell script TODO:  
+sh Optimizer_m1.sh <qasm file>
+
+python3 Optimizer_mac_DagHash.py -> Generate a QC here, it will return a csv file containing hashed dag  
+python3 Optimizer_mac_Ml.py <hashed dag path> -> Will generate optimization schedule based on provided hashed dag path, and will return a file containing the optimization names  
+python3 Optimizer_mac_final.py <circuit json> <optimizations> -> run optimizations on a circuit, return serialized optimized circuit  
 
 
 ### How training data is being generated

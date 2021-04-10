@@ -1,5 +1,11 @@
-from qiskit.transpiler import PassManager
-from Learner import OptimizationLearner
+from qiskit.transpiler import PassManager, passes
+
+def get_optimization_type(opt_id):
+    #temporary, will be different obviously
+    if(opt_id == 1):
+        return passes.CommutativeCancellation()
+    else:
+        return None
 
 class AdaptiveScheduler():
     """
@@ -9,7 +15,6 @@ class AdaptiveScheduler():
     """
     def __init__(self):
         self.pass_manager = PassManager()
-        self.learner = OptimizationLearner()
 
     def run_optimization(self, quantum_circuit):
         """Runs Qiskit Pass Manager"""

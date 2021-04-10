@@ -1,4 +1,5 @@
 import csv
+import json
 from Scheduler.DagHandler import hash_adj_list
 
 def put_subdags_into_csv(csv_path: str, subdags: list):
@@ -15,5 +16,7 @@ def hash_training_data(training_data_path: str, hashed_data_path: str, col_count
 
             for row in reader:
                 hashed_row = hash_adj_list(row[0:3])
-                hashed_row.append(row[-1])
+
+                if(col_count == 4):
+                    hashed_row.append(row[-1])
                 writer.writerow(hashed_row)
