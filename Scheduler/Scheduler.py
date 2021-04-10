@@ -1,9 +1,12 @@
 from qiskit.transpiler import PassManager, passes
 
 def get_optimization_type(opt_id):
-    #temporary, will be different obviously
     if(opt_id == 1):
         return passes.CommutativeCancellation()
+    elif(opt_id == 2):
+        return passes.CXCancellation()
+    elif(opt_id == 3):
+        return passes.CXDirection()
     else:
         return None
 
