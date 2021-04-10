@@ -4,6 +4,7 @@ import os
 import qiskit
 from Scheduler.Scheduler import get_optimization_type
 from Scheduler.Scheduler import AdaptiveScheduler
+from Utils import compare_qasm_execs
 
 '''
 This module uses runs the optimization using the provided schedule.
@@ -37,5 +38,13 @@ optimized_qc = adaptive_scheduler.run_optimization(qiskit.QuantumCircuit.from_qa
 
 qasm_filename = os.path.splitext(qasm_file)[0]
 optimized_qc.qasm(False, qasm_filename+"_optimized.qasm")
+
+verification_succesful = compare_qasm_execs(qasm_file, qasm_filename+"_optimized.qasm")
+
+if(verification_succesful):
+    print("Optimized circuit returns same result on simulator.")
+else:
+    print("Failed to verify that optimized circuit returns same result.")
+    sys.exit(1)
 
 sys.exit(0)

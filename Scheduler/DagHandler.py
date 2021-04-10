@@ -86,6 +86,7 @@ def divide_into_subdags(adj_list: list):
     '''
     Returns an array of lists - sub-dags of a dag
     '''
+    cx_direction_exists = False
     skip_one = False
     subdag_list = list()
     current_subdag = list()
@@ -111,6 +112,7 @@ def divide_into_subdags(adj_list: list):
                 hadamard_subdags.append(new_hadamard_subdag)
             else:
                 subdag_list.append(hadamard_subdags[counter])
+                cx_direction_exists = True
                 del(hadamard_subdags[counter])
         
 
@@ -132,7 +134,7 @@ def divide_into_subdags(adj_list: list):
     if(len(current_subdag) > 0):
         subdag_list.append(current_subdag)
     
-    return subdag_list
+    return subdag_list, cx_direction_exists
 
 def chop_subdag(adj_list: list, chop_size = 3):
     '''

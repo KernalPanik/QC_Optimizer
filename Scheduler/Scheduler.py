@@ -1,4 +1,6 @@
-from qiskit.transpiler import PassManager, passes
+from qiskit.transpiler import PassManager, passes, CouplingMap
+from qiskit.providers.aer import QasmSimulator
+from qiskit import Aer
 
 def get_optimization_type(opt_id):
     if(opt_id == 1):
@@ -6,7 +8,8 @@ def get_optimization_type(opt_id):
     elif(opt_id == 2):
         return passes.CXCancellation()
     elif(opt_id == 3):
-        return passes.CXDirection()
+        return None
+        #return passes.CXDirection(coupling_map)
     else:
         return None
 

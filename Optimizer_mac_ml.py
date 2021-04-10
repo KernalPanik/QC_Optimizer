@@ -18,7 +18,7 @@ def extract_subdags_from_csv(filename):
     return subdag_list
 
 def save_predictions_to_csv(filename, predictions):
-    with open(filename, 'w', newline='') as csvfile:
+    with open(filename, 'a', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         pred_set = set(predictions)
         writer.writerow(pred_set)

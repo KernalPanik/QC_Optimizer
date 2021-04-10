@@ -3,7 +3,7 @@ import sys
 import os
 
 from qiskit.dagcircuit import DAGCircuit
-from Scheduler.DagHandler import dag_to_list, hash_adj_list, chop_subdag
+from Scheduler.DagHandler import dag_to_list, hash_adj_list, chop_subdag, divide_into_subdags
 from qiskit import QuantumCircuit
 from qiskit.converters import circuit_to_dag
 from Utils import put_subdags_into_csv, hash_training_data
@@ -25,12 +25,22 @@ else:
         sys.exit(1)
     qasm_file = sys.argv[1]
 
-
 circuit = qiskit.QuantumCircuit.from_qasm_file(qasm_file)
 dag = circuit_to_dag(circuit)
+
 adj_list = dag_to_list(dag)
-chopped_dag = list(chop_subdag(adj_list))
-put_subdags_into_csv("temp_eval.csv", chopped_dag)
+subdags, cx_direction_exists = divide_into_subdags(adj_list)
+
+if(cx_direction_exists):
+    pred_file = open("temp_pred.csv", 'a')
+    pred_file.write("3,")
+    pred_file.close()
+
+
+for subdag in subdags:
+    chopped_dag = list(chop_subdag(subdag))
+    put_subdags_into_csv("temp_eval.csv", chopped_dag)
+
 hash_training_data("temp_eval.csv", "temp_eval_hashed.csv", 3)
 
 sys.exit(0)
