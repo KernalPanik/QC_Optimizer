@@ -99,7 +99,3 @@ class Adaptive_Optimizer():
         os.remove("temp_pred.csv")
         os.remove("temp_eval.csv")
         os.remove("temp_eval_hashed.csv")
-
-
-ao = Adaptive_Optimizer()
-ao.run_optimization("Test_Qasm.qasm")
