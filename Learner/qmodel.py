@@ -133,20 +133,22 @@ def predict(model, subdags: list):
   predict_dataset = tf.convert_to_tensor(subdags)
 
   predictions = model(predict_dataset, training=False)
-
+  result_optimization_predictions = list()
   for i, logits in enumerate(predictions):
     class_idx = tf.argmax(logits).numpy()
     p = tf.nn.softmax(logits)[class_idx]
     name = class_names[class_idx]
+    result_optimization_predictions.append(class_idx)
     print("Example {} prediction: {} ({:4.1f}%)".format(i, name, 100*p))
 
+  return result_optimization_predictions
 
-subdags_to_eval = [[0.281,0.281,0.282,],
-      [0.281,0.546,0.284,],
-      [0.283,0.268,0.283,]]
+#subdags_to_eval = [[0.281,0.281,0.282,],
+#      [0.281,0.546,0.284,],
+#      [0.283,0.268,0.283,]]
 
-model = init_training_procedure("training_data.csv", 32)
-init_test_procedure(model, "training_data.csv", 32)
-predict(model, subdags_to_eval)
+#model = init_training_procedure("training_data.csv", 32)
+#init_test_procedure(model, "training_data.csv", 32)
+#predict(model, subdags_to_eval)
 
 #save_model(model)

@@ -1,5 +1,17 @@
-from qiskit.transpiler import PassManager
-from Learner import OptimizationLearner
+from qiskit.transpiler import PassManager, passes, CouplingMap
+from qiskit.providers.aer import QasmSimulator
+from qiskit import Aer
+
+def get_optimization_type(opt_id):
+    if(opt_id == 1):
+        return passes.CommutativeCancellation()
+    elif(opt_id == 2):
+        return passes.CXCancellation()
+    elif(opt_id == 3):
+        return None
+        #return passes.CXDirection(coupling_map)
+    else:
+        return None
 
 class AdaptiveScheduler():
     """
@@ -9,7 +21,6 @@ class AdaptiveScheduler():
     """
     def __init__(self):
         self.pass_manager = PassManager()
-        self.learner = OptimizationLearner()
 
     def run_optimization(self, quantum_circuit):
         """Runs Qiskit Pass Manager"""
