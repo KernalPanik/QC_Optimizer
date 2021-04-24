@@ -6,14 +6,15 @@ This project is split into two different Modules: Scheduler and Learner. Schedul
 
 Learner should be working on Mac M1 chips, while Scheduler can be run on a Mac M1 via Rosetta2 only, since Scipy fails to install when running qiskit on M1 natively. Will make sure it works without any trouble on windows, but will add some workarounds on a Mac M1, unfortunately.
 
-### On Windows
+### On Windows (x86, x64)
 Import the Adaptive_Optimizer class from Optimizer_win.py. Usage example:
 ```
-from Optimizer_win import Adaptive_Optimizer
+from Optimizer_main import Adaptive_Optimizer
 ao = Adaptive_Optimizer()
 ao.run_optimization(<path to circuit qasm file>)
 ``` 
 This code will generate _optimized qasm file.
+
 ### On Mac M1
 Optimizer can't be easily imported on Mac M1, so to run optimizations, a shell script 
 ```
@@ -28,7 +29,6 @@ python3 Optimizer_mac_final.py <circuit json> <optimizations> -> run optimizatio
 ### How training data is being generated
 Random circuits are converted into adjacency lists, then these lists are split into 3 element lists and put in a csv file. This file is later analyzed manually, and optimization (0 - no opt; 1 - same opt) is set for each subdag list. Then hashing is used to convert strings into numbers, and these values are used to train ML model.
 
-future work or next TODO: Automate this process by creating special helper functions that would allow to create subdags that: {can't be optimized, same optimization, hadamard optimization etc.}
 
 
 

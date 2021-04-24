@@ -29,7 +29,7 @@ model = init_training_procedure("Learner/training_data.csv", 32)
 
 print("Invoking Testing Procedure...")
 
-init_test_procedure(model, "Learner/training_data.csv", 32) # Yep, these are the same for now...
+init_test_procedure(model, "Learner/training_data.csv", 32)
 
 print("Predicting...")
 
