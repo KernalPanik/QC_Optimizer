@@ -22,7 +22,7 @@ def dag_to_list(dag: DAGCircuit):
 
 def hash_adj_list(adj_list: list) -> list:
     '''
-    Hashes the entries in the adjacency list using CRC32.
+    Hashes the entries in the adjacency list
     '''
     hashed_adj_list = []
 
@@ -34,8 +34,8 @@ def hash_adj_list(adj_list: list) -> list:
                 num += ord(i)
             elif(len(i) == 2):
                 num += ord(i[0])
-                num += ord(i[1])
-        hashed_adj_list.append(num/1000)
+                num += ord(i[1]) * ord(i[1])
+        hashed_adj_list.append(num/10000)
     
     return hashed_adj_list
 
