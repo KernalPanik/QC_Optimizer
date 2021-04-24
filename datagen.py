@@ -1,11 +1,13 @@
 #import qiskit
 #import csv
 #import os
+from Utils import hash_training_data
 
 def generate_commutative_cancellations(training_data_file: str):
-    dictionary = ['x', 'h', 'i', 'rx(pi)']
-    qubits = [1, 2, 3]
-    file = open(training_data_file, "a")
+    dictionary = ['x', 'h', 'i', 'rx(pi)'] # You can add more operations to the dictionary
+    qubits = [1, 2, 3] 
+    temp_filename = "training_data_temp.csv"
+    file = open(temp_filename, "a")
     for i in range(1, 3):
         # Picking 'irrelevant' qubit
         irrel_qubit = i
@@ -27,12 +29,10 @@ def generate_commutative_cancellations(training_data_file: str):
                 data_str += ',' + str(1)
                 file.write(data_str + "\n")
     file.close()
+    hash_training_data(temp_filename, training_data_file, 4)
 
 def generate_no_opts():
     pass
 
-def generate_cx_cancellations():
-    pass
-
 generate_commutative_cancellations("commut_canc_train.csv")
-generate_no_opts("no_opt_train.csv")
+#generate_no_opts("no_opt_train.csv")
