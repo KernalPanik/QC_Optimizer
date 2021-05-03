@@ -1,6 +1,6 @@
 import os
 import tensorflow as tf
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 column_names = ['first', 'second', 'third', 'optimization']
 feature_names = column_names[:-1]

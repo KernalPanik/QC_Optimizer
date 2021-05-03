@@ -74,8 +74,8 @@ def generate_complete_training_data(training_data_file: str):
             with open(filename) as infile:
                 for line in infile:
                     outfile.write(line)
-    os.remove("commut.csv")
-    os.remove("noopt.csv")
+    #os.remove("commut.csv")
+    #os.remove("noopt.csv")
 
 generate_complete_training_data("generated_training_data.csv")
 hash_training_data("generated_training_data.csv", "hashed_training_data.csv", 4)
