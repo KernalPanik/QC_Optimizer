@@ -8,8 +8,7 @@ def get_optimization_type(opt_id):
     elif(opt_id == 2):
         return passes.CXCancellation()
     elif(opt_id == 3):
-        return None
-        #return passes.CXDirection(coupling_map)
+        return passes.Optimize1qGates()
     else:
         return None
 

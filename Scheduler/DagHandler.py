@@ -36,6 +36,12 @@ def hash_adj_list(adj_list: list) -> list:
             elif(len(l) == 2):
                 #new_hash += ord(l[0])
                 new_hash += ord(l[1])
+            elif(len(l) >= 4):
+                new_hash += ord(l[0])
+                new_hash += ord(l[1])
+                new_hash += ord(l[2])
+                new_hash += ord(l[3])
+                
         
         if(new_hash not in known_hashes.values()):
             known_hashes[adj] = new_hash
