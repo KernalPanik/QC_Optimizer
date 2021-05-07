@@ -5,7 +5,7 @@ import tensorflow as tf
 column_names = ['first', 'second', 'third', 'optimization']
 feature_names = column_names[:-1]
 label_name = column_names[-1]
-class_names = ['no_opt', 'same_opt']
+class_names = ['no_opt', 'same_opt', 'cx_opt']
 
 def pack_features_vector(features, labels):
   """Pack the features into a single array."""
@@ -49,7 +49,7 @@ def init_training_procedure(training_data: str, batch_size: int):
   model = tf.keras.Sequential([
     tf.keras.layers.Dense(10, activation=tf.nn.relu, input_shape=(3,)),  # input shape required
     tf.keras.layers.Dense(10, activation=tf.nn.relu),
-    tf.keras.layers.Dense(2)
+    tf.keras.layers.Dense(3)
   ])
 
   predictions = model(features)

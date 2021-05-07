@@ -32,7 +32,7 @@ def hash_adj_list(adj_list: list) -> list:
         new_hash = 0
         for l in f:
             if(len(l) == 1):
-                new_hash += ord(l)
+                new_hash += 0 + 17 * ord(l)-97
             elif(len(l) == 2):
                 #new_hash += ord(l[0])
                 new_hash += ord(l[1])
