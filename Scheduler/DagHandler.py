@@ -25,17 +25,27 @@ def hash_adj_list(adj_list: list) -> list:
     Hashes the entries in the adjacency list
     '''
     hashed_adj_list = []
+    known_hashes = dict()
 
     for adj in adj_list:
-        num = 0
         f = adj.split('_')
-        for i in f:
-            if(len(i) == 1):
-                num += ord(i)
-            elif(len(i) == 2):
-                num += ord(i[0])
-                num += ord(i[1]) * ord(i[1])
-        hashed_adj_list.append(num/10000)
+        new_hash = 0
+        for l in f:
+            if(len(l) == 1):
+                new_hash += ord(l)
+            elif(len(l) == 2):
+                #new_hash += ord(l[0])
+                new_hash += ord(l[1])
+        
+        if(new_hash not in known_hashes.values()):
+            known_hashes[adj] = new_hash
+        elif(adj not in known_hashes.keys()):
+            while(new_hash not in known_hashes.values()):
+                new_hash += 1
+            
+            known_hashes[adj] = new_hash
+        
+        hashed_adj_list.append(new_hash/100)
     
     return hashed_adj_list
 
