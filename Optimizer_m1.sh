@@ -6,7 +6,7 @@ if [ $status = 1 ]; then
     exit
 fi
 
-#rm "temp_eval.csv"
+rm "temp_eval.csv"
 
 python3 Optimizer_mac_ml.py
 status=$?
@@ -20,5 +20,5 @@ if [ $status = 1 ]; then
     echo "Optimizer failed while running final optimization steps"
 fi
 
-#rm "temp_eval_hashed.csv"
-#rm "temp_pred.csv"
+rm "temp_eval_hashed.csv"
+rm "temp_pred.csv"
