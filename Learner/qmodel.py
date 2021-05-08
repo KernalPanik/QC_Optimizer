@@ -47,8 +47,8 @@ def init_training_procedure(training_data: str, batch_size: int):
   features, labels = next(iter(train_dataset))
 
   model = tf.keras.Sequential([
-    tf.keras.layers.Dense(11, activation=tf.nn.relu, input_shape=(3,)),  # input shape required
-    tf.keras.layers.Dense(11, activation=tf.nn.relu),
+    tf.keras.layers.Dense(10, activation=tf.nn.relu, input_shape=(3,)),  # input shape required
+    tf.keras.layers.Dense(10, activation=tf.nn.relu),
     tf.keras.layers.Dense(4)
   ])
 
