@@ -6,8 +6,8 @@ This project is split into two different Modules: Scheduler and Learner. Schedul
 
 Learner should be working on Mac M1 chips, while Scheduler can be run on a Mac M1 via Rosetta2 only, since Scipy fails to install when running qiskit on M1 natively. Will make sure it works without any trouble on windows, but will add some workarounds on a Mac M1, unfortunately.
 
-### On Windows (x86, x64)
-Import the Adaptive_Optimizer class from Optimizer_win.py. Usage example:
+### On Windows and Linux-based systems (x86, x64)
+Import the Adaptive_Optimizer class from Optimizer_main.py. Usage example:
 ```
 from Optimizer_main import Adaptive_Optimizer
 ao = Adaptive_Optimizer()
