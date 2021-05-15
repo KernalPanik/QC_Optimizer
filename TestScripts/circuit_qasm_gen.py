@@ -27,7 +27,7 @@ def transpile_into_basis(circ: QuantumCircuit, output_filename: str):
 
     with open(output_filename, 'a') as f:
         f.write(rcirc.qasm())
-
+        
 def random_gen(N):
     """N is for qubit count"""
     circ = random_circuit(N, N*N, 2, False, False, False, None)

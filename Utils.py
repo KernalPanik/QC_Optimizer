@@ -4,6 +4,22 @@ from Scheduler.DagHandler import hash_adj_list
 import qiskit
 from qiskit.visualization import plot_histogram
 
+def compare_circ_execs(qc1, qc2) -> bool:
+    simulator = Aer.get_backend('statevector_simulator')
+
+    job1 = execute(qc1, simulator, shots=1000)
+    result1 = job1.result()
+
+    job2 = execute(qc2, simulator, shots=1000)
+    result2 = job2.result()
+
+    counts1 = list(result1.get_counts().values())
+    counts2 = list(result2.get_counts().values())
+    for i in range(0, len(counts1)):
+        if(counts1[i] - counts2[i] > 0.000001):
+            return False
+    return True
+
 def compare_qasm_execs(qasm_file_1, qasm_file_2) -> bool:
     simulator = Aer.get_backend('statevector_simulator')
     qc1 = qiskit.QuantumCircuit.from_qasm_file(qasm_file_1)

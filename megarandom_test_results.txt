@@ -1,0 +1,42 @@
+Optimizing random 3 qubit circuits
+Before optimization avg: 20.27
+After optimization avg: 18.73
+Optimizing random 4 qubit circuits
+Before optimization avg: 46.11
+After optimization avg: 42.9
+Optimizing random 5 qubit circuits
+Before optimization avg: 89.18
+After optimization avg: 82.97
+Optimizing random 6 qubit circuits
+Before optimization avg: 152.64
+After optimization avg: 141.91
+Optimizing random 7 qubit circuits
+Before optimization avg: 239.83
+After optimization avg: 224.04
+Optimizing random 8 qubit circuits
+Before optimization avg: 355.95
+After optimization avg: 332.19
+Optimizing random 9 qubit circuits
+Before optimization avg: 503.61
+After optimization avg: 471.56
+Optimizing random 10 qubit circuits
+Before optimization avg: 689.69
+After optimization avg: 645.85
+Optimizing random 11 qubit circuits
+Before optimization avg: 914.05
+After optimization avg: 857.52
+Optimizing random 12 qubit circuits
+Before optimization avg: 1183.16
+After optimization avg: 1110.44
+Optimizing random 13 qubit circuits
+Before optimization avg: 1503.69
+After optimization avg: 1410.31
+Optimizing random 14 qubit circuits
+Before optimization avg: 1871.12
+After optimization avg: 1760.23
+Optimizing random 15 qubit circuits
+Before optimization avg: 2302.64
+After optimization avg: 2162.76
+Optimizing random 16 qubit circuits
+Before optimization avg: 2788.13
+After optimization avg: 2621.68

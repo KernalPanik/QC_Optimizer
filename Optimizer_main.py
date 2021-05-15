@@ -1,6 +1,6 @@
 import qiskit
 import csv
-from Utils import compare_qasm_execs
+from Utils import compare_qasm_execs, compare_circ_execs
 from qiskit import QuantumCircuit
 from qiskit.converters import circuit_to_dag
 from Scheduler.DagHandler import dag_to_list, hash_adj_list, chop_subdag, divide_into_subdags
@@ -70,6 +70,32 @@ class Adaptive_Optimizer():
                     except ValueError:
                         pass
         return optimizations
+
+    def run_optimization_no_qasm(self, circuit):
+        self._hash_circuit(circuit)
+
+        adaptive_scheduler = AdaptiveScheduler()
+        self._analyze_circuit()
+        optimizations = self._get_optimizations()
+
+        for opt in optimizations:
+            opt_type = get_optimization_type((int(opt)))
+            if(opt_type != None):
+                print(opt_type)
+                adaptive_scheduler.add_optimization(opt_type)
+        
+        optimized_qc = adaptive_scheduler.run_optimization(circuit)
+        os.remove("temp_pred.csv")
+        os.remove("temp_eval.csv")
+        os.remove("temp_eval_hashed.csv")
+
+        verification_succesful = compare_circ_execs(circuit, optimized_qc)
+
+        if(verification_succesful):
+            print("Optimized circuit returns same result on simulator.")
+        else:
+            print("Failed to verify that optimized circuit returns same result.")
+        return optimized_qc
 
     def run_optimization(self, circuit_qasm):
         circuit = qiskit.QuantumCircuit.from_qasm_file(circuit_qasm)
