@@ -1,3 +1,7 @@
+'''
+This test script generates sub-dags that can be used for ANN training
+Please note than in 
+'''
 import numpy as np
 import os
 from Utils import hash_training_data

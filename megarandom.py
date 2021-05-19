@@ -1,3 +1,12 @@
+'''
+This script generates a lot (100) of random scripts, which are later 
+optimized. Complete Test can take up to 6-8 hours.
+
+This test measures average gate count in random circuits, and average gate count
+in optimized random circuits.
+
+In the end, a txt file will be generated with test results. Please check megarandom_test_results.txt file
+'''
 import qiskit
 from qiskit import QuantumCircuit
 from qiskit.circuit.random import random_circuit
@@ -6,7 +15,7 @@ from Optimizer_main import Adaptive_Optimizer
 def mega_random_test():
     try_count = 100
     ao = Adaptive_Optimizer()
-    for i in range(16, 17):
+    for i in range(3, 17):
         avg_before_optimize = 0
         avg_after_optimize = 0
         for j in range(0, try_count):
