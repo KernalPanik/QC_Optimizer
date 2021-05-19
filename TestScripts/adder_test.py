@@ -1,3 +1,7 @@
+'''
+This test script contains test methods used to generate and analyze quantum adder circuits.
+'''
+
 import math
 import numpy as np
 import time
@@ -62,7 +66,8 @@ def five_qubit():
 
     print("transpiled circ op count:")
     print(trans_circ.count_ops())
-IBMQ.save_account("983977d6aef3832d4541ec1e9503cb4b9f93c811f3d61febe63db7f82276ee6a9887bc920bba11bcd838d04987bc8fac47c8cec22591a86eee11c16240f687b6")
+
+IBMQ.save_account("") # Add your IBMQ API key
 
 four_qubit()
 five_qubit()

@@ -1,3 +1,7 @@
+'''
+This test script is used to generate HHL algorithm circuits
+'''
+
 from qiskit import Aer, transpile, assemble
 from qiskit.circuit.library import QFT
 from qiskit.aqua import QuantumInstance, aqua_globals
@@ -31,10 +35,7 @@ def fidelity(hhl, ref):
     fidelity = state_fidelity(solution_hhl_normed, solution_ref_normed)
     print("Fidelity:\t\t %f" % fidelity)
 
-def gen_hhl(N):
-    matrix = [[1, -1/3], [-1/3, 1]]
-    vector = [1, 0]
-
+def gen_hhl(N, matrix, vector):
     orig_size = len(vector)
     matrix, vector, truncate_powerdim, truncate_hermitian = HHL.matrix_resize(matrix, vector)
 
@@ -70,4 +71,6 @@ def gen_hhl(N):
     with open('transpiled_hhl_'+str(N)+'x'+str(N)+'.qasm', 'a') as f:
         f.write(rcirc.qasm())
 
-gen_hhl(2)
+gen_hhl(2,[[1, -1/3], [-1/3, 1]], [1, 0])
+gen_hhl(3,[[1, 2, 1], [-3, -1, 2], [0,  5, 3]], [0, 1, -1])
+gen_hhl(4,[[5, 6, 7, 1], [0, 2, 3, 4], [0, 0, 4, 5], [0, 0, 0, 3]], [10, 2, 2, 4])
