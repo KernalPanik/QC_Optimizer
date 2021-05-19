@@ -139,10 +139,10 @@ def divide_into_subdags(adj_list: list):
             current_subdag.append(adj_list[i])
         else:
             current_subdag.append(adj_list[i])
-            #current_subdag.append(adj_list[i+1])
+            current_subdag.append(adj_list[i+1])
             subdag_list.append(current_subdag)
             current_subdag = list()
-            #skip_one = True
+            skip_one = True
 
         for hadamard_subdag in hadamard_subdags:
             hadamard_subdag.append(adj_list[i])
