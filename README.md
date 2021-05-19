@@ -29,6 +29,7 @@ python3 Optimizer_mac_final.py <circuit json> <optimizations> -> run optimizatio
 ### How training data is being generated
 Random circuits are converted into adjacency lists, then these lists are split into 3 element lists and put in a csv file. This file is later analyzed manually, and optimization (0 - no opt; 1 - same opt) is set for each subdag list. Then hashing is used to convert strings into numbers, and these values are used to train ML model.
 
-
+### Test Scripts
+There are several Python test scripts which were used to generate test data, perform additional quantum algorithm tests. Please see TestScripts folder for more info. Provided files contain methods to generate circuit qasm files based on given qubit count. Use these methods to generate qasm file to optimize, and then use AdaptiveOptimizer class to perform optimizations on created files. Sometimes, a circuit can be optimized several times (i.e. performing optimization on already optimized qasm).
 
 
