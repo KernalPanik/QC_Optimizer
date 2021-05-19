@@ -2,6 +2,10 @@ from qiskit.transpiler import PassManager, passes, CouplingMap
 from qiskit.providers.aer import QasmSimulator
 from qiskit import Aer
 
+'''
+This method returns the optimization based on provided id
+You can use it as a way of reacting to certain patterns in quantum code
+'''
 def get_optimization_type(opt_id):
     if(opt_id == 1):
         return passes.CommutativeCancellation()

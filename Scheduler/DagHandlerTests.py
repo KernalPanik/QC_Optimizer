@@ -53,7 +53,7 @@ class DagHandlerTests(unittest.TestCase):
         circ.x(q[1])
         dag = circuit_to_dag(circ)
         adj_list = dag_to_list(dag)
-        subdags = divide_into_subdags(adj_list)
+        subdags, cxdir = divide_into_subdags(adj_list)
         self.assertEqual(len(subdags), 3)
 
     def test_divide_into_subdags_test_hadamard_subdag_generated(self):
@@ -68,8 +68,10 @@ class DagHandlerTests(unittest.TestCase):
 
         dag = circuit_to_dag(circ)
         adj_list = dag_to_list(dag)
-        subdags = divide_into_subdags(adj_list)
+        subdags, cxdir = divide_into_subdags(adj_list)
         success = ((subdags[0][0] == "h_q0_") and (subdags[0][-1] == "h_q0_"))
+        hm = subdags[0][0]
+        hmm = subdags[0][-1]
         self.assertTrue(success)
 
     def test_sort_subdag_test_given_unsorted_returns_sorted(self):

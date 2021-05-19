@@ -1,3 +1,7 @@
+'''
+This test script is used to generate test circuit qasm files
+'''
+
 import qiskit
 import math
 import numpy as np
@@ -117,6 +121,7 @@ def qpe_algo_gen(N):
 
     transpile_into_basis(qpe3, 'transpiled_QPE_'+str(N)+'.qasm')
 
+# Generate random circuit qasm files using provided amount of qubits
 random_gen(4)
 random_gen(6)
 random_gen(8)
@@ -125,16 +130,19 @@ random_gen(12)
 random_gen(14)
 random_gen(16)
 
+# Generate shor algorithm circuit qasm files using provided amount of qubits
 shor_algo_gen(9)
 shor_algo_gen(15)
 shor_algo_gen(21)
 shor_algo_gen(35)
 
+# Generate QFT algorithm circuit qasm files using provided amount of qubits
 qft_algo_gen(4)
 qft_algo_gen(8)
 qft_algo_gen(12)
 qft_algo_gen(16)
 
+# Generate QFT algorithm circuit qasm files using provided amount of qubits
 qpe_algo_gen(4)
 qpe_algo_gen(8)
 qpe_algo_gen(12)

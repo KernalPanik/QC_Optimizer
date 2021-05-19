@@ -52,6 +52,10 @@ class Adaptive_Optimizer():
             writer.writerow(pred_set)
 
     def _analyze_circuit(self):
+        '''
+        Analyze circuit subdags saved in "temp_eval_hashed.csv" file
+        using ANN
+        '''
         model = init_training_procedure("Learner/training_data.csv", 32)
         init_test_procedure(model, "Learner/training_data.csv", 32)
         subdags = self._extract_subdags_from_csv("temp_eval_hashed.csv")

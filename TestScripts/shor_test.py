@@ -1,3 +1,8 @@
+'''
+This is Shor algorithm test script used to measure difference between ideal
+algorithm execution and noisy environment execution.
+'''
+
 import math
 import numpy as np
 import time
@@ -18,12 +23,13 @@ def shor_ideal(N):
     start = time.time()
     result = shor.run(quantum_instance)
     end = time.time()
+    print(result)
 
     print(f"Elapsed: {end - start} seconds")
 
     circ = shor.construct_circuit(False)
 
-    ops = circ.count_ops() # This thing over here is super important! Will use it as a metric
+    ops = circ.count_ops() 
 
     print(ops)
 
@@ -45,37 +51,36 @@ def shor_noisy(N):
     start = time.time()
     result = shor.run(quantum_instance)
     end = time.time()
+    print(result)
 
     print(f"Elapsed: {end - start} seconds")
     circ = shor.construct_circuit(False)
-    ops = circ.count_ops() # This thing over here is super important! Will use it as a metric
+    ops = circ.count_ops()
 
     print(ops)
 
     print(result['factors'][0])
 
-IBMQ.save_account("983977d6aef3832d4541ec1e9503cb4b9f93c811f3d61febe63db7f82276ee6a9887bc920bba11bcd838d04987bc8fac47c8cec22591a86eee11c16240f687b6")
+IBMQ.save_account("") # Add your IBMQ API key here
 
 print("running ideal tests")
-
-print("factoring 9")
-shor_ideal(9)
+#print("factoring 9")
+#shor_ideal(9)
 print("factoring 15")
 shor_ideal(15)
 print("factoring 21")
 shor_ideal(21)
-print("factoring 27")
-shor_ideal(27)
+#print("factoring 27")
+#shor_ideal(27)
 
 
 print("running noisy tests")
-
-print("factoring 9")
-shor_noisy(9)
+#print("factoring 9")
+#shor_noisy(9)
 print("factoring 15")
 shor_noisy(15)
 print("factoring 21")
 shor_noisy(21)
-print("factoring 27")
-shor_noisy(27)
+#print("factoring 27")
+#shor_noisy(27)
 

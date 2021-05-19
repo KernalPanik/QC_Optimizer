@@ -1,3 +1,7 @@
+'''
+This module contains various utilities used in other functions
+'''
+
 import csv
 from qiskit import Aer, execute
 from Scheduler.DagHandler import hash_adj_list
